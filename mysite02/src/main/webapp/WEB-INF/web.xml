@@ -13,14 +13,14 @@
 
 	<!-- context Load Listener -->
 	<listener>
-		<listener-class>com.douzone.web1.ContextLoadListener</listener-class>
+		<listener-class>com.douzone.web.ContextLoadListener</listener-class>
 	</listener>
 
 	<!-- Encodong Filter -->
 	<filter>
 		<display-name>EncodingFilter</display-name>
 		<filter-name>EncodingFilter</filter-name>
-		<filter-class>com.douzone.web1.EncodingFilter</filter-class>
+		<filter-class>com.douzone.web.EncodingFilter</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>utf-8</param-value>

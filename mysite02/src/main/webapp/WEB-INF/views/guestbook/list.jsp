@@ -53,10 +53,7 @@
 								</tr>
 							</table>
 							<br>				
-					</c:forEach>
-				
-				
-						
+					</c:forEach>						
 					</li>
 				</ul> 
 			</div>

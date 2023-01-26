@@ -1,4 +1,4 @@
-package com.douzone.web1;
+package com.douzone.web;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;

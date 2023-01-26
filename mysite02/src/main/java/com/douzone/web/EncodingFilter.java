@@ -1,4 +1,4 @@
-package com.douzone.web1;
+package com.douzone.web;
 
 import java.io.IOException;
 import javax.servlet.Filter;
