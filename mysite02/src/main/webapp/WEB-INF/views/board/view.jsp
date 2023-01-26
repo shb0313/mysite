@@ -19,11 +19,7 @@
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 		<div id="content">
-			<div id="board" class="board-form">
-			
-			<h1>${boardVo.userNo } 유저번호</h1>
-			<h1>${sessionScope.authUser.no } 로그인번호</h1>
-			
+			<div id="board" class="board-form">			
 				<table class="tbl-ex">
 					<tr>
 						<th colspan="2">글보기</th>
@@ -43,7 +39,6 @@
 				<div class="bottom">
 					<a href="${pageContext.request.contextPath }/board">글목록</a>
 
-					
 					<c:if test="${boardVo.userNo == sessionScope.authUser.no }">
 						<a href="${pageContext.request.contextPath }/board?a=modifyform&no=${boardVo.no }">글수정</a>
 					</c:if>

@@ -139,10 +139,11 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "insert into board values(null, ?, ?, 0, now(), 1, 1, 0, 1)";
+			String sql = "insert into board values(null, ?, ?, 0, now(), 1, 1, 0, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
+			pstmt.setLong(3, vo.getUserNo());
 			
 			int count = pstmt.executeUpdate();
 			
@@ -230,6 +231,38 @@ public class BoardDao {
 			}
 		}
 	}
+	
+	public void updateHit(Long no) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnection();
+						
+			String sql = "update board set hit = hit + 1 where no = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, no);			
+			
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println("Error:" + e);
+		} finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;

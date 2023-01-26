@@ -13,7 +13,7 @@ public class WriteFormAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+				
 		MvcUtil.forward("board/write", request, response);
 	}
 
