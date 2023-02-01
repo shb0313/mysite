@@ -1,6 +1,8 @@
 package com.douzone.mysite.web.mvc.board;
 
 import java.io.IOException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -16,10 +18,12 @@ public class ViewAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		Long no = Long.parseLong(request.getParameter("no"));
 		
-		System.out.println(no);
+		LocalTime now = LocalTime.now();
+        int hour = Integer.parseInt(now.format(DateTimeFormatter.ofPattern("HH")));
+        int min = Integer.parseInt(now.format(DateTimeFormatter.ofPattern("mm")));
+        int sec = Integer.parseInt(now.format(DateTimeFormatter.ofPattern("ss")));
 
 		Cookie viewCookie = null;
 		Cookie[] cookies = request.getCookies();
@@ -34,9 +38,8 @@ public class ViewAction implements Action {
 
 		if (viewCookie == null) {
 			Cookie newCookie = new Cookie("cookie" + no, "|" + no + "|");
-			newCookie.setMaxAge(15);  //1day
+			newCookie.setMaxAge((24 * 3600) - (hour * 3600 + min * 60 + sec));
 			response.addCookie(newCookie);
-
 			new BoardDao().updateHit(no);
 		}
 		

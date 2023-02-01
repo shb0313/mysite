@@ -13,7 +13,7 @@ import com.douzone.mysite.vo.UserVo;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.MvcUtil;
 
-public class WriteAction implements Action {
+public class ReplyAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,19 +24,39 @@ public class WriteAction implements Action {
 			MvcUtil.redirect(request.getContextPath(), request, response);
 			return;
 		}
-				
+		
+		System.out.println("RA : " + request.getParameter("no"));
+		
+		
+		Long no = Long.parseLong(request.getParameter("no"));
 		String title = request.getParameter("title");
 		String contents = request.getParameter("content");
 		
-		BoardVo vo = new BoardVo();
-		vo.setTitle(title);
-		vo.setContents(contents);
-		vo.setUserNo(authUser.getNo());
-		vo.setoNo(1L);
-
-		new BoardDao().insert(vo);
-		MvcUtil.redirect(request.getContextPath() + "/board?a=list", request, response);
 		
+		BoardVo vo = new BoardDao().findByNo(no);
+		
+		
+		System.out.println("gno : " + vo.getgNo());
+		System.out.println("ono : " + vo.getoNo());
+		System.out.println("dep : " + vo.getDepth());
+		
+		
+		
+		
+		new BoardDao().updateReply(vo.getgNo(), vo.getoNo());
+		
+
+		BoardVo replyVo = new BoardVo();
+		replyVo.setTitle(title);
+		replyVo.setContents(contents);
+		replyVo.setgNo(vo.getgNo());
+		replyVo.setoNo(vo.getoNo());
+		replyVo.setDepth(vo.getDepth());
+		replyVo.setUserNo(authUser.getNo());
+		
+		new BoardDao().insertReply(replyVo);
+		MvcUtil.redirect(request.getContextPath() + "/board?a=list", request, response);
+
 	}
 
 }

@@ -52,11 +52,46 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping("/loginout")
+	@RequestMapping("/logout")
 	public String loginout(HttpSession session) {
 		session.removeAttribute("authUser");
 		session.invalidate();
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	//public String update(@AuthUser UserVo vo) {
+	public String update(HttpSession ssesion, Model model) {
+		// Access Control
+		UserVo authUser= (UserVo)ssesion .getAttribute("authUser");
+		
+		if(authUser == null) {
+			return "redirect:/";
+		}
+		/////////////////
+		
+		UserVo userVo = userService.getUser(authUser.getNo());
+		
+		model.addAttribute("userVo", userVo);
+		return "user/update";
+	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	//public String update(@AuthUser UserVo vo) {
+	public String update(HttpSession ssesion, UserVo vo) {
+		// Access Control
+		UserVo authUser= (UserVo)ssesion .getAttribute("authUser");
+		
+		if(authUser == null) {
+			return "redirect:/";
+		}
+		/////////////////
+		
+		vo.setNo(authUser.getNo());
+		userService.updateUser(vo);
+		
+		authUser.setName(vo.getName());
+		return "redirect:/user/update";
 	}
 	
 	

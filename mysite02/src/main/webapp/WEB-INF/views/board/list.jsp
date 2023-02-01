@@ -34,16 +34,23 @@
 					<c:forEach items="${list }" var="vo" varStatus="status">
 						<tr>
 							<td>${count - status.index }</td>
-							<td style="text-align: left; padding-left: 0px"><a
-								href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a>
+							<td style="text-align: left; padding-left: ${vo.depth * 20 }px">		
+								<c:choose>
+									<c:when test="${vo.depth == 0 }">
+										<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a>
+									</c:when>
+									<c:otherwise>
+										<img id="rep" src="${pageContext.request.contextPath }/assets/images/reply.png"/>
+									<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a>	
+									</c:otherwise>
+								</c:choose>
 							</td>
 							<td>${vo.userName }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
 
 							<c:if test="${authUser.no eq vo.userNo }">
-								<td><a
-									href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }"
+								<td><a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no }"
 									class="del">삭제</a></td>
 							</c:if>
 						</tr>
@@ -66,8 +73,7 @@
 
 				<div class="bottom">
 					<c:if test="${not empty authUser }">
-						<a href="${pageContext.request.contextPath }/board?a=writeform"
-							id="new-book">글쓰기</a>
+						<a href="${pageContext.request.contextPath }/board?a=writeform"	id="new-book">글쓰기</a>
 					</c:if>
 				</div>
 			</div>
