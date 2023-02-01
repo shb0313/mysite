@@ -56,7 +56,6 @@ public class BoardDao {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("파인드 올");
 			System.out.println("Error:" + e);
 		} finally {
 			try {
@@ -115,7 +114,6 @@ public class BoardDao {
 
 			}
 		} catch (SQLException e) {
-			System.out.println("넘버 파인드");
 			System.out.println("Error:" + e);
 		} finally {
 			try {
@@ -159,7 +157,6 @@ public class BoardDao {
 			result = count == 1;
 
 		} catch (SQLException e) {
-			System.out.println("추가");
 			System.out.println("Error:" + e);
 		} finally {
 			try {
@@ -193,7 +190,6 @@ public class BoardDao {
 			int count = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("삭제");
 			System.out.println("Error:" + e);
 		} finally {
 			try {
@@ -227,7 +223,6 @@ public class BoardDao {
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("업데이트");
 			System.out.println("Error:" + e);
 		} finally {
 			try {
@@ -259,7 +254,6 @@ public class BoardDao {
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("조횟 업데이트");
 			System.out.println("Error:" + e);
 		} finally {
 			try {
@@ -292,7 +286,6 @@ public class BoardDao {
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("답글 업데이트");
 			System.out.println("Error:" + e);
 		} finally {
 			try {
@@ -329,7 +322,6 @@ public class BoardDao {
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("답글 추가");
 			System.out.println("Error:" + e);
 		} finally {
 			try {

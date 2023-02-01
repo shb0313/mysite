@@ -12,7 +12,7 @@ import com.douzone.mysite.service.BoardService;
 @Controller
 @RequestMapping("/board")
 public class BoardController {
-
+	
 	@Autowired
 	private BoardService boardService;
 	
@@ -21,20 +21,8 @@ public class BoardController {
 		Map<String, Object> map = boardService.getContentsList(1, "");
 		
 		model.addAttribute("map", map);
+		// model.addAllAttributes(map);
 		
 		return "board/index";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
