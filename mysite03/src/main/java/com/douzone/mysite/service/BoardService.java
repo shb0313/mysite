@@ -21,8 +21,8 @@ public class BoardService {
 	
 	
 	public void addContents(BoardVo vo) {
-		
-		
+		boardRepository.insert(vo);
+		System.out.println("ser - add");
 		
 	}
 
@@ -57,8 +57,11 @@ public class BoardService {
 	}
 	
 	public Map<String, Object> getContentsList(int page, String keyword) {
-		int toTalCount = boardRepository.getTotalCount(keyword);
+		System.out.println("ser - getCL1");
 
+		int toTalCount = boardRepository.getTotalCount(keyword);
+		System.out.println("ser - getCL2");
+		
 		// 1. view에서 게시판 리스트를 렌더링 하기 위한 데이터 값 계산
 		int beginPage = 0;
 		int prevPage = 0;
@@ -67,6 +70,7 @@ public class BoardService {
 
 		//2. 리스트 가져오기
 		List<BoardVo> list = boardRepository.findAllByPageAndKeyword(page, keyword, LIST_SIZE);
+		System.out.println("ser - getCL3");
 		
 		//3. 리스트 정보를 map에 저장
 		Map<String, Object> map = new HashMap<>();

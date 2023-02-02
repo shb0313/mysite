@@ -38,10 +38,4 @@
 			where no = #{no } and password = #{password }
 		]]>
 	</delete>
-	
-	
-	
-	
-	
-	
 </mapper>

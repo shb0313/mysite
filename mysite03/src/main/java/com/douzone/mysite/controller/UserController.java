@@ -78,9 +78,9 @@ public class UserController {
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	//public String update(@AuthUser UserVo vo) {
-	public String update(HttpSession ssesion, UserVo vo) {
+	public String update(HttpSession session, UserVo vo) {
 		// Access Control
-		UserVo authUser= (UserVo)ssesion .getAttribute("authUser");
+		UserVo authUser= (UserVo)session .getAttribute("authUser");
 		
 		if(authUser == null) {
 			return "redirect:/";
