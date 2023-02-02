@@ -25,6 +25,7 @@ public class GuestBookRepository {
 		}
 	
 	public List<GuestBookVo> findAll() {
-		return sqlSession.selectList("guestbook.findAll");
-		}
+		List<GuestBookVo> list = sqlSession.selectList("guestbook.findAll");
+		return list;
+	}
 }

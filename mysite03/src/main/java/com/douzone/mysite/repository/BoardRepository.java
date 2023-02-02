@@ -38,4 +38,18 @@ public class BoardRepository {
 		return "redirect:/board";
 	}
 
+	public String delete(Long no) {
+		sqlSession.delete("board.delete", no);
+		System.out.println("rep - delete");
+		return "redirect:/board";
+		
+	}
+
+	
+	
+	
+	
+	
+	
+	
 }

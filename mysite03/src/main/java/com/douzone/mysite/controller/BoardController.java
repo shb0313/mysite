@@ -30,9 +30,6 @@ public class BoardController {
 		model.addAttribute("map", map);
 		// model.addAllAttributes(map);
 		
-		System.out.println(map);
-		
-		
 		return "board/list";
 	}
 	
@@ -52,6 +49,11 @@ public class BoardController {
 		return "redirect:/board";
 	}
 	
+	@RequestMapping("/delete")
+	public String delete(Long no) {
+		boardService.deleteContents(no);		
+		return "redirect:/board";
+	}
 	
 	
 	

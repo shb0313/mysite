@@ -18,12 +18,8 @@ public class BoardService {
 	@Autowired
 	private BoardRepository boardRepository;
 	
-	
-	
 	public void addContents(BoardVo vo) {
-		boardRepository.insert(vo);
-		System.out.println("ser - add");
-		
+		boardRepository.insert(vo);		
 	}
 
 	
@@ -50,10 +46,8 @@ public class BoardService {
 	
 	}
 	
-	public void deleteContents(Long no, Long userNo) {
-	
-	
-	
+	public void deleteContents(Long no) {
+		boardRepository.delete(no);
 	}
 	
 	public Map<String, Object> getContentsList(int page, String keyword) {
