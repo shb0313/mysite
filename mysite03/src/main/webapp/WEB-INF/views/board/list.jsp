@@ -31,26 +31,26 @@
 					</tr>
 
 					<c:set var="count" value="${fn:length(list) }" />
-					<c:forEach items="${map.list }" var="vo" varStatus="status">
+					<c:forEach items="${map.list }" var="list" varStatus="status">
 						<tr>
 							<td>${count - status.index + 5 }</td>
-								<td style="text-align: left; padding-left: ${vo.depth * 20 }px">		
+								<td style="text-align: left; padding-left: ${list.depth * 20 }px">		
 								<c:choose>
-									<c:when test="${vo.depth == 0 }">
-										<a href="${pageContext.request.contextPath }/board/view?no=${vo.no }"> ${vo.title }</a>
+									<c:when test="${list.depth eq 0 }">
+										<a href="${pageContext.request.contextPath }/board/view?no=${list.no }"> ${list.title }</a>
 									</c:when>
 									<c:otherwise>
 										<img id="rep" src="${pageContext.request.contextPath }/assets/images/reply.png"/>
-									<a href="${pageContext.request.contextPath }/board/view?no=${vo.no }">${vo.title }</a>	
+									<a href="${pageContext.request.contextPath }/board/view?no=${list.no }">${list.title }</a>	
 									</c:otherwise>
 								</c:choose>
 							</td>
-							<td>${vo.userName }</td>
-							<td>${vo.hit }</td>
-							<td>${vo.regDate }</td>
+							<td>${list.userName }</td>
+							<td>${list.hit }</td>
+							<td>${list.regDate }</td>
 
-							<c:if test="${authUser.no eq vo.userNo }">
-								<td><a href="${pageContext.request.contextPath }/board/delete?no=${vo.no }" class="del">삭제</a></td>
+							<c:if test="${authUser.no eq list.userNo }">
+								<td><a href="${pageContext.request.contextPath }/board/delete?no=${list.no }" class="del">삭제</a></td>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -59,26 +59,37 @@
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-						<li><a href="">◀◀</a></li>
-						<li><a href="">◀</a></li>
+						<c:choose>
+							<c:when test="${map.prevPage eq 0}">
+								<li><a href="${pageContext.request.contextPath }/board?page=1">◀</a></li>												
+							</c:when>
+							<c:otherwise>
+								<li><a href="${pageContext.request.contextPath }/board?page=${map.prevPage }">◀</a></li>																												
+							</c:otherwise>
+						</c:choose>
 						
-						<c:set var="count" value="${fn:length(list) /  }" />
-						<c:forEach items="${map.list }" var="vo" varStatus="status">
-							<li><a href=""></a></li>
+						<c:set var="count" value="${map.endPage }" />
+						<c:forEach var="i" begin="${map.beginPage }" end="${map.endPage }" varStatus="status">
+							<c:choose>
+								<c:when test="${map.page != i }">
+									<li><a href="${pageContext.request.contextPath }/board?page=${i }">${i }</a></li>						
+								</c:when>
+								<c:otherwise>
+									<li class="selected">${map.page }</li>
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
-						
-						
-						
-						<li class="selected">2</li>
-						<li><a href="">3</a></li>
-						<li>4</li>
-						<li>5</li>
-						<li><a href="">▶</a></li>
-						<li><a href="">▶▶</a></li>
+
+						<c:choose>
+							<c:when test="${map.nextPage >= map.endPage }">
+								<li><a href="${pageContext.request.contextPath }/board?page=${map.endPage }">▶</a></li>																				
+							</c:when>
+							<c:otherwise>
+								<li><a href="${pageContext.request.contextPath }/board?page=${map.nextPage }">▶</a></li>																																		
+							</c:otherwise>
+						</c:choose>
 					</ul>
 				</div>
-				<!-- pager 추가 -->
-
 				<div class="bottom">
 					<c:if test="${not empty authUser }">
 						<a href="${pageContext.request.contextPath }/board/write" id="new-book">글쓰기</a>

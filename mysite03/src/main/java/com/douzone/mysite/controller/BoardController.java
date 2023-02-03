@@ -23,9 +23,10 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping("")
-	public String index(Model model) {	
-		Map<String, Object> map = boardService.getContentsList(1, "");
+	public String index(int page, Model model) {		
+		Map<String, Object> map = boardService.getContentsList(page, "");
 		
+		map.put("page", page);
 		model.addAttribute("map", map);
 		// model.addAllAttributes(map);
 		

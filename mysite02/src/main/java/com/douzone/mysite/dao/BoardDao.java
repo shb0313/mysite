@@ -20,7 +20,7 @@ public class BoardDao {
 
 		try {
 			conn = getConnection();
-
+						
 			String sql = "select a.no, a.title, a.contents, a.hit, a.reg_date, a.g_no, a.o_no, a.depth, a.user_no, b.name \r\n"
 					+ "	from board a, user b\r\n"
 					+ "    where a.user_no = b.no\r\n"

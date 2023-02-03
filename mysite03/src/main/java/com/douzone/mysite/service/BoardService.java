@@ -58,25 +58,26 @@ public class BoardService {
 	}
 	
 	public Map<String, Object> getContentsList(int page, String keyword) {
-		int toTalCount = boardRepository.getTotalCount(keyword);
+		int totalCount = boardRepository.getTotalCount(keyword);
 		
 		// 1. view에서 게시판 리스트를 렌더링 하기 위한 데이터 값 계산
-		int beginPage = 0;
-		int prevPage = 0;
-		int nextPage = 0;
-		int endPage = 0;
+		int beginPage = 1;
+		int endPage = totalCount/LIST_SIZE + 1;
+		int prevPageList = (page - 1) / PAGE_SIZE * PAGE_SIZE;
+		int nextPageList = (page - 1) / PAGE_SIZE * PAGE_SIZE + 6;
 
 		//2. 리스트 가져오기
 		List<BoardVo> list = boardRepository.findAllByPageAndKeyword(page, keyword, LIST_SIZE);
 		
 		//3. 리스트 정보를 map에 저장
 		Map<String, Object> map = new HashMap<>();
-		
+		map.put("totalCount", totalCount);
 		map.put("list", list);
 		map.put("beginPage", beginPage);
-		map.put("prevPage", prevPage);
-		map.put("nextPage", nextPage);
 		map.put("endPage", endPage);
+		map.put("prevPage", prevPageList);
+		map.put("nextPage", nextPageList);
+		map.put("pageSize", PAGE_SIZE);
 		
 		
 		return map;
