@@ -76,9 +76,7 @@ public class BoardService {
 		map.put("beginPage", beginPage);
 		map.put("endPage", endPage);
 		map.put("prevPage", prevPageList);
-		map.put("nextPage", nextPageList);
-		map.put("pageSize", PAGE_SIZE);
-		
+		map.put("nextPage", nextPageList);		
 		
 		return map;
 	}
