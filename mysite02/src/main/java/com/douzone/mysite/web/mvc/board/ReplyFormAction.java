@@ -15,9 +15,7 @@ public class ReplyFormAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Long no = Long.parseLong(request.getParameter("no"));
-		
-		System.out.println("RAF" + no);
-		
+				
 		request.setAttribute("no", no);
 		MvcUtil.forward("board/reply", request, response);
 	}

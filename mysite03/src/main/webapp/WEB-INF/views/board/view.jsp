@@ -48,8 +48,8 @@
 					<a href="${pageContext.request.contextPath }/board">글목록</a>
 
 					<c:if test="${boardVo.userNo == sessionScope.authUser.no }">
-						<a href="${pageContext.request.contextPath }/board?a=modifyform&no=${boardVo.no }">글수정</a>
-						<a href='${pageContext.request.contextPath }/board?a=replyform&no=${boardVo.no }'>댓글</a>
+						<a href="${pageContext.request.contextPath }/board/modify?no=${boardVo.no }">글수정</a>
+						<a href='${pageContext.request.contextPath }/board/reply?no=${boardVo.no }'>답글</a>
 					</c:if>
 				</div>
 			</div>

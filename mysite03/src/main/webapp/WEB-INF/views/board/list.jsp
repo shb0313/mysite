@@ -37,11 +37,11 @@
 								<td style="text-align: left; padding-left: ${vo.depth * 20 }px">		
 								<c:choose>
 									<c:when test="${vo.depth == 0 }">
-										<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }"> ${vo.title }</a>
+										<a href="${pageContext.request.contextPath }/board/view?no=${vo.no }"> ${vo.title }</a>
 									</c:when>
 									<c:otherwise>
 										<img id="rep" src="${pageContext.request.contextPath }/assets/images/reply.png"/>
-									<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a>	
+									<a href="${pageContext.request.contextPath }/board/view?no=${vo.no }">${vo.title }</a>	
 									</c:otherwise>
 								</c:choose>
 							</td>
@@ -59,13 +59,22 @@
 				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
+						<li><a href="">◀◀</a></li>
 						<li><a href="">◀</a></li>
-						<li><a href="">1</a></li>
+						
+						<c:set var="count" value="${fn:length(list) /  }" />
+						<c:forEach items="${map.list }" var="vo" varStatus="status">
+							<li><a href=""></a></li>
+						</c:forEach>
+						
+						
+						
 						<li class="selected">2</li>
 						<li><a href="">3</a></li>
 						<li>4</li>
 						<li>5</li>
 						<li><a href="">▶</a></li>
+						<li><a href="">▶▶</a></li>
 					</ul>
 				</div>
 				<!-- pager 추가 -->

@@ -24,26 +24,33 @@ public class BoardService {
 
 	
 	public BoardVo getContents(Long no) {
-		
-		
-		
-		return null;
+		return boardRepository.findByNo(no);
 	}
 	
 	
-
-	public BoardVo getContents(Long no, Long userNo) {
+	public void addReplyContents(BoardVo vo) {
+		System.out.println("ser - ARC");
 		
 		
+		BoardVo prevVo = boardRepository.findByNo(vo.getNo());
+		System.out.println("prev" + vo);
 		
 		
-		return null;
+		boardRepository.updateContentsOrder(prevVo);
+		System.out.println("p" + prevVo);
+		
+		vo.setgNo(prevVo.getgNo());
+		vo.setoNo(prevVo.getoNo());
+		vo.setDepth(prevVo.getDepth());
+		
+		
+		System.out.println("v" + vo);
+		
+		boardRepository.insertReply(vo);
 	}
 	
 	public void updateContents(BoardVo vo) {
-	
-	
-	
+		boardRepository.update(vo);
 	}
 	
 	public void deleteContents(Long no) {
@@ -51,10 +58,7 @@ public class BoardService {
 	}
 	
 	public Map<String, Object> getContentsList(int page, String keyword) {
-		System.out.println("ser - getCL1");
-
 		int toTalCount = boardRepository.getTotalCount(keyword);
-		System.out.println("ser - getCL2");
 		
 		// 1. view에서 게시판 리스트를 렌더링 하기 위한 데이터 값 계산
 		int beginPage = 0;
@@ -64,10 +68,10 @@ public class BoardService {
 
 		//2. 리스트 가져오기
 		List<BoardVo> list = boardRepository.findAllByPageAndKeyword(page, keyword, LIST_SIZE);
-		System.out.println("ser - getCL3");
 		
 		//3. 리스트 정보를 map에 저장
 		Map<String, Object> map = new HashMap<>();
+		
 		map.put("list", list);
 		map.put("beginPage", beginPage);
 		map.put("prevPage", prevPage);
@@ -77,4 +81,6 @@ public class BoardService {
 		
 		return map;
 	}
+
+
 }

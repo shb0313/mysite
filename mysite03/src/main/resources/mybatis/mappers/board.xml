@@ -60,6 +60,13 @@
 		</choose>
 	</select>
 	
+	<select id="findByNo" parameterType="boardvo" resultType="boardvo">
+		<![CDATA[
+		select no, title, contents, g_no, o_No, depth, user_no 
+			from board where no = #{no }
+		]]>
+	</select>
+	
 	<insert id="insert" parameterType="boardvo">
 		<![CDATA[
 		insert into board 
@@ -73,7 +80,24 @@
 		]]>	
 	</delete>
 	
+	<update id="update" parameterType="boardvo">
+		<![CDATA[
+		update board set title=#{title }, contents=#{contents } where no = #{no }
+		]]>
+	</update>
 	
+	<update id="updateContentsOrder" parameterType="boardvo">
+		<![CDATA[
+		update board set o_no = o_no + 1 where g_no = #{gNo } and o_no >= #{oNo }
+		]]>
+	</update>
+	
+	<insert id="insertReply" parameterType="boardvo">
+		<![CDATA[
+		insert into board 
+			values(null, #{title }, #{contents }, 0, now(), #{gNo }, #{oNo }, #{depth } + 1, #{userNo })
+		]]>
+	</insert>
 	
 	
 	

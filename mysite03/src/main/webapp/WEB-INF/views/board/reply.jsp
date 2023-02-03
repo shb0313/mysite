@@ -15,14 +15,13 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 		<div id="content">
 			<div id="board">			
-			
-			<h4>no: ${no }</h4>
-			
-			
-			
-				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board">
-					<input type = "hidden" name = "a" value="reply">
+				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/reply">
 					<input type = "hidden" name = "no" value="${no }">
+					
+					
+					
+					<h4>;;;;;; ${no }</h4>
+					
 					
 					<table class="tbl-ex">
 						<tr>
@@ -35,7 +34,7 @@
 						<tr>
 							<td class="label">내용</td>
 							<td>
-								<textarea id="content" name="content"></textarea>
+								<textarea id="content" name="contents"></textarea>
 							</td>
 						</tr>
 					</table>

@@ -21,28 +21,41 @@ public class BoardRepository {
 		map.put("size", size);
 		map.put("keyword", keyword);
 
-		System.out.println("rep - fABPAK");
-
 		return sqlSession.selectList("board.findAllByPageAndKeyword", map);
 	}
 
 	public int getTotalCount(String keyword) {
-		System.out.println("rep - getTC");
-
 		return sqlSession.selectOne("board.getTotalCount", keyword);
 	}
 
-	public String insert(BoardVo vo) {
+	public void insert(BoardVo vo) {
 		sqlSession.insert("board.insert", vo);
-		System.out.println("rep - insert");
-		return "redirect:/board";
 	}
 
-	public String delete(Long no) {
-		sqlSession.delete("board.delete", no);
-		System.out.println("rep - delete");
-		return "redirect:/board";
+	public void delete(Long no) {
+		sqlSession.delete("board.delete", no);		
+	}
+
+	public BoardVo findByNo(Long no) {
+		BoardVo vo = sqlSession.selectOne("board.findByNo", no);
+		System.out.println("rep-findByNo : " + vo);
 		
+		return sqlSession.selectOne("board.findByNo", no);
+	}
+
+	public void update(BoardVo vo) {
+		sqlSession.update("board.update", vo);
+	}
+
+	public void updateContentsOrder(BoardVo vo) {
+		System.out.println("rep - update");
+		sqlSession.update("board.updateContentsOrder", vo);	
+	}
+
+	public void insertReply(BoardVo vo) {
+		System.out.println("vo:" + vo);
+		System.out.println("rep - insert");
+		sqlSession.insert("board.insertReply", vo);	
 	}
 
 	

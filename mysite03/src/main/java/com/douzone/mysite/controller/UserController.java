@@ -92,9 +92,5 @@ public class UserController {
 		
 		authUser.setName(vo.getName());
 		return "redirect:/user/update";
-	}
-	
-	
-	
-	
+	}	
 }
