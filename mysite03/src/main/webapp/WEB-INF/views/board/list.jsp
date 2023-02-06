@@ -68,8 +68,7 @@
 							</c:otherwise>
 						</c:choose>
 						
-						<c:set var="count" value="${map.endPage }" />
-						<c:forEach var="i" begin="${map.beginPage }" end="${map.endPage }" varStatus="status">
+						<c:forEach var="i" begin="${map.prevPage + 1 }" end="${(map.nextPage > map.endPage) ? map.endPage : map.nextPage - 1 }" varStatus="status">
 							<c:choose>
 								<c:when test="${map.page != i }">
 									<li><a href="${pageContext.request.contextPath }/board?page=${i }">${i }</a></li>						

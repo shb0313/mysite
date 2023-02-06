@@ -69,7 +69,40 @@
 						<li><a href="">▶</a></li>
 					</ul>
 				</div>
-				<!-- pager 추가 -->
+				<!-- 
+				<div class="pager">
+					<ul>
+						<c:choose>
+							<c:when test="${map.prevPage eq 0}">
+								<li><a href="${pageContext.request.contextPath }/board?page=1">◀</a></li>												
+							</c:when>
+							<c:otherwise>
+								<li><a href="${pageContext.request.contextPath }/board?page=${map.prevPage }">◀</a></li>																												
+							</c:otherwise>
+						</c:choose>
+						
+						<c:forEach var="i" begin="${map.prevPage + 1 }" end="${(map.nextPage > map.endPage) ? map.endPage : map.nextPage - 1 }" varStatus="status">
+							<c:choose>
+								<c:when test="${map.page != i }">
+									<li><a href="${pageContext.request.contextPath }/board?page=${i }">${i }</a></li>						
+								</c:when>
+								<c:otherwise>
+									<li class="selected">${map.page }</li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+
+						<c:choose>
+							<c:when test="${map.nextPage >= map.endPage }">
+								<li><a href="${pageContext.request.contextPath }/board?page=${map.endPage }">▶</a></li>																				
+							</c:when>
+							<c:otherwise>
+								<li><a href="${pageContext.request.contextPath }/board?page=${map.nextPage }">▶</a></li>																																		
+							</c:otherwise>
+						</c:choose>
+					</ul>
+				</div>
+				-->
 
 				<div class="bottom">
 					<c:if test="${not empty authUser }">

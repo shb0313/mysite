@@ -7,10 +7,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.douzone.mysite.security.Auth;
 import com.douzone.mysite.service.BoardService;
 import com.douzone.mysite.vo.BoardVo;
 import com.douzone.mysite.vo.UserVo;
@@ -35,6 +35,9 @@ public class BoardController {
 		return "board/list";
 	}
 	
+	@Auth(role="ADMIN")
+	//@Auth
+	//@Auth(test="false")
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String add() {
 		return "board/write";

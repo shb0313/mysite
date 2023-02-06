@@ -1,6 +1,5 @@
 package com.douzone.mysite.controller;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.douzone.mysite.security.Auth;
+import com.douzone.mysite.security.AuthUser;
 import com.douzone.mysite.service.UserService;
 import com.douzone.mysite.vo.UserVo;
 
@@ -49,58 +50,24 @@ public class UserController {
 		return "user/joinsuccess";
 	}
 	
-	@RequestMapping(value="/login", method = RequestMethod.GET)
+	@RequestMapping("/login")
 	public String login() {
 		return "user/login";
 	}
-		
-	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String login(HttpSession session, UserVo vo, Model model) {
-		UserVo authUser = userService.getUser(vo);
-		
-		if(authUser == null) {
-			model.addAttribute("email", vo.getEmail());
-			return "user/login";
-		}
-		
-		session.setAttribute("authUser", authUser);
-		return "redirect:/";
-	}
-	
-	@RequestMapping("/logout")
-	public String loginout(HttpSession session) {
-		session.removeAttribute("authUser");
-		session.invalidate();
-		return "redirect:/";
-	}
-	
+			
+	@Auth
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	//public String update(@AuthUser UserVo vo) {
-	public String update(HttpSession ssesion, Model model) {
-		// Access Control
-		UserVo authUser= (UserVo)ssesion .getAttribute("authUser");
-		
-		if(authUser == null) {
-			return "redirect:/";
-		}
-		/////////////////
-		
+	public String update(@AuthUser UserVo authUser, Model model) {
+				
 		UserVo userVo = userService.getUser(authUser.getNo());
 		
 		model.addAttribute("userVo", userVo);
 		return "user/update";
 	}
 
+	@Auth
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	//public String update(@AuthUser UserVo vo) {
-	public String update(HttpSession session, UserVo vo) {
-		// Access Control
-		UserVo authUser= (UserVo)session .getAttribute("authUser");
-		
-		if(authUser == null) {
-			return "redirect:/";
-		}
-		/////////////////
+	public String update(@AuthUser UserVo authUser, UserVo vo) {
 		
 		vo.setNo(authUser.getNo());
 		userService.updateUser(vo);

@@ -338,6 +338,53 @@ public class BoardDao {
 		}
 	}
 
+	public int getTotalCount(String keyword) {
+		int result;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = getConnection();
+			
+			if(keyword == null || keyword == "") {
+				String sql = "select count(*) from board";
+				pstmt = conn.prepareStatement(sql);
+			} else {
+				String sql = "select count(*) from board\r\n"
+						+ " where title like ?\r\n"
+						+ " or contents like ?";
+				pstmt = conn.prepareStatement(sql);				
+				pstmt.setString(1, "%" + keyword + "%");
+			}
+			rs = pstmt.executeQuery();
+			
+		} catch (SQLException e) {
+			System.out.println("Error:" + e);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
+		
+		
+		return 0;
+	}
+
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
 
@@ -352,4 +399,5 @@ public class BoardDao {
 
 		return conn;
 	}
+
 }

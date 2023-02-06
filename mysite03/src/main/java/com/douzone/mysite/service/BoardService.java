@@ -64,7 +64,7 @@ public class BoardService {
 		int beginPage = 1;
 		int endPage = totalCount/LIST_SIZE + 1;
 		int prevPageList = (page - 1) / PAGE_SIZE * PAGE_SIZE;
-		int nextPageList = (page - 1) / PAGE_SIZE * PAGE_SIZE + 6;
+		int nextPageList = (page - 1) / PAGE_SIZE * PAGE_SIZE + PAGE_SIZE + 1;
 
 		//2. 리스트 가져오기
 		List<BoardVo> list = boardRepository.findAllByPageAndKeyword(page, keyword, LIST_SIZE);
