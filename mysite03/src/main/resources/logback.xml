@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-
 	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<charset>UTF-8</charset>
@@ -11,7 +10,7 @@
 	</appender>
 
 	<appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>/mysite/exception.log</file>
+		<file>/mysite-logs/exception.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>
 				%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n
@@ -24,19 +23,16 @@
 		</rollingPolicy>
 		<triggeringPolicy
 			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-			<MaxFileSize>50KB</MaxFileSize>
+			<MaxFileSize>100MB</MaxFileSize>
 		</triggeringPolicy>
 	</appender>
 
-	
 	<logger name="com.douzone.mysite.exception" level="error" additivity="false">
-            <appender-ref ref="fileAppender" />
-            <appender-ref ref="consoleAppender" />
+		<appender-ref ref="fileAppender" />
+		<appender-ref ref="consoleAppender" />
     </logger>
-    	
-	<!-- 루트(글로벌) 로거 -->
+	
 	<root level="warn">
 		<appender-ref ref="consoleAppender" />
 	</root>
-
 </configuration>

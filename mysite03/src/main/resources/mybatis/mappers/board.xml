@@ -1,110 +1,152 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
-	<resultMap id="findAllByPageAndKeywordList" type="boardvo">
-		<id property="no" column="no"/>
-		<result property="title" column="title"/>
-		<result property="contents" column="contents"/>
-		<result property="hit" column="hit"/>
-		<result property="regDate" column="reg_date"/>
-		<result property="gNo" column="g_no"/>
-		<result property="oNo" column="o_no"/>
-		<result property="userNo" column="user_no"/>
-		<result property="userName" column="name"/>
-	</resultMap>
-
-	<select id="findAllByPageAndKeyword" 
-			parameterType="boardvo"
-			resultMap="findAllByPageAndKeywordList">
+	<insert id="insert" parameterType="boardvo">
 		<choose>
-			<when test='keyword == null || keyword == ""'>
-			<![CDATA[		
-			select a.no, a.title, a.contents, a.hit, a.reg_date, a.g_no, a.o_no, a.depth, a.user_no, b.name 
-				from board a, user b
-    			where a.user_no = b.no
-    			order by g_no desc, o_no desc
-    			limit #{startOffset }, #{size }    
-			]]>	
-			</when>
-			<otherwise>
-			<![CDATA[		
-			select a.no, a.title, a.contents, a.hit, a.reg_date, a.g_no, a.o_no, a.depth, a.user_no, b.name 
-				from board a, user b
-    			where a.user_no = b.no
-					and title like '%${keyword }%'
-					or contents like '%${keyword }%'
-    			order by g_no desc, o_no desc
-    			limit #{startOffset }, #{size }    
-			]]>
-			</otherwise>		
-		</choose>
-	</select>
-	
-	<select id="getTotalCount" parameterType="string" resultType="integer">
-		<!-- 검색 값 유무 확인/ 있으면 검색 리스트 수, 없으면 전체 리스트 수 -->
-		<choose>
-			<when test='_parameter == null || _parameter == ""'>
+			<when test="groupNo == null">
 				<![CDATA[
-				select count(*)
-				  from board
+				insert
+				  into board
+				values (null,
+						#{title },
+						#{contents },
+						0,
+						now(),
+						(select ifnull(max(g_no), 0) + 1 from board a ),
+						1, 
+						0, 
+						#{userNo })
 				]]>
 			</when>
 			<otherwise>
 				<![CDATA[
-				select count(*)
-				  from board
-				 where title like '%${_parameter }%'
-				    or contents like '%${_parameter }%'
+				insert
+				  into board
+				values (null,
+						#{title },
+						#{contents },
+						0,
+						now(),
+						#{groupNo },
+						#{orderNo }, 
+						#{depth }, 
+						#{userNo })				
 				]]>
 			</otherwise>
 		</choose>
-	</select>
-	
-	<select id="findByNo" parameterType="boardvo" resultType="boardvo">
-		<![CDATA[
-		select no, title, contents, g_no, o_No, depth, user_no 
-			from board where no = #{no }
-		]]>
-	</select>
-	
-	<insert id="insert" parameterType="boardvo">
-		<![CDATA[
-		insert into board 
-			values(null, #{title }, #{contents }, 0, now(), (SELECT IFNULL(MAX(g_no) + 1, 1) FROM board a), 1, 0, #{userNo })
-		]]>	
 	</insert>
 
-	<delete id="delete" parameterType="boardvo">
+	<update id="update" parameterType="boardVo">
 		<![CDATA[
-		delete from board where no = #{no }
+		update board 
+		   set title=#{title },
+		       contents=#{contents }
+		 where no=#{no }
+		   and user_no=#{userNo }		
+		]]>	
+	</update>
+	
+	<delete id="delete" parameterType="map" > 
+		<![CDATA[
+		delete
+		  from board 
+		 where no = #{no }
+		   and user_no = #{userNo }
 		]]>	
 	</delete>
-	
-	<update id="update" parameterType="boardvo">
+
+	<select id="findByNo" parameterType="long" resultType="boardvo">
 		<![CDATA[
-		update board set title=#{title }, contents=#{contents } where no = #{no }
-		]]>
+		select	no,
+				title,
+				contents,
+				g_no as groupNo,
+				o_no as orderNo,
+				depth,
+				user_no as userNo
+		   from board
+		  where no = #{no }		
+		]]>		
+	</select>
+	
+	<select id="findByNoAndUserNo" parameterType="map" resultType="boardvo">
+		<![CDATA[
+		select	no,
+				title,
+				contents
+		   from board
+		  where no = #{no }
+		    and user_no = #{userNo }		
+		]]>		
+	</select>	
+		
+	<select id="findAllByPageAndKeword" parameterType="map" resultType="boardvo">
+		<choose>
+			<when test="keyword == null or keyword == ''">
+				<![CDATA[
+				  select a.no,
+				  		 a.title,
+				  		 a.hit,
+				  		 date_format(a.reg_date, '%Y-%m-%d %p %h:%i:%s') as regDate,
+				  		 a.depth,
+				  		 b.name as userName,
+				  		 a.user_no as userNo
+					from board a, user b
+				   where a.user_no = b.no
+				order by g_no desc, o_no asc
+				   limit #{startIndex }, #{size }				
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+				  select a.no,
+				  		 a.title,
+				  		 a.hit,
+				  		 date_format(a.reg_date, '%Y-%m-%d %p %h:%i:%s') as regDate,
+				  		 a.depth, 
+				  		 b.name as userName,
+				  		 a.user_no as userNo
+				  	from board a, user b
+				   where a.user_no = b.no
+				     and (title like '%${keyword }%' or contents like '%${keyword }%')
+				order by g_no desc, o_no asc
+				   limit #{startIndex }, #{size }				
+				]]>			
+			</otherwise>
+		</choose>
+	</select>
+
+	<update id="updateHit" parameterType="long">
+		<![CDATA[
+		update board
+		   set hit = hit + 1
+		 where no=#{no }
+		]]>	
 	</update>
 	
-	<update id="updateContentsOrder" parameterType="boardvo">
+	<update id="updateOrederNo" parameterType="map">
 		<![CDATA[
-		update board set o_no = o_no + 1 where g_no = #{gNo } and o_no >= #{oNo }
-		]]>
-	</update>
+		update board
+		   set o_no = o_no + 1
+		 where g_no = #{groupNo }
+		   and o_no >= #{orderNo }
+		]]>	
+	</update>	
 	
-	<insert id="insertReply" parameterType="boardvo">
-		<![CDATA[
-		insert into board 
-			values(null, #{title }, #{contents }, 0, now(), #{gNo }, #{oNo }, #{depth } + 1, #{userNo })
-		]]>
-	</insert>
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<select id="totalCount" parameterType="string" resultType="integer">
+		<choose>
+			<when test="_parameter == null or _parameter == ''">
+				<![CDATA[
+				select count(*) from board
+				]]>				
+			</when>
+			<otherwise>
+				<![CDATA[
+				select count(*) 
+				  from board
+				 where (title like '%${_parameter }%' or contents like '%${_parameter  }%') 
+				]]>				
+			</otherwise>
+		</choose>	
+	</select>
 </mapper>

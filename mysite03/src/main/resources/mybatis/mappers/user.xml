@@ -14,7 +14,7 @@
 			resultType="uservo"
 			parameterType="map">
 		<![CDATA[
-		select no, name 
+		select no, name, role 
 			from user 
 			where email = #{e } 
 				and password = password(#{p })	

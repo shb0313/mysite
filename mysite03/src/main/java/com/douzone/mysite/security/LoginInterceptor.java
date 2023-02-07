@@ -20,11 +20,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 			throws Exception {
 
 		String email = request.getParameter("email");
-		String passwword = request.getParameter("password");
+		String password = request.getParameter("password");
 
 		UserVo vo = new UserVo();
 		vo.setEmail(email);
-		vo.setPassword(passwword);
+		vo.setPassword(password);
 
 		UserVo authUser = userService.getUser(vo);
 
@@ -37,7 +37,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 		}
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("authUser", authUser);	
+		session.setAttribute("authUser", authUser);
+		
+		System.out.println("role");
+		
 		response.sendRedirect(request.getContextPath());
 
 		return false;

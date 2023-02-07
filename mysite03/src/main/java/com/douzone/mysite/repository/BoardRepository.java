@@ -12,57 +12,60 @@ import com.douzone.mysite.vo.BoardVo;
 
 @Repository
 public class BoardRepository {
-	@Autowired
-	private SqlSession sqlSession;
 
-	public List<BoardVo> findAllByPageAndKeyword(int page, String keyword, int size) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("startOffset", (page - 1) * size);
-		map.put("size", size);
-		map.put("keyword", keyword);
+    @Autowired
+    private SqlSession sqlSession;
 
-		return sqlSession.selectList("board.findAllByPageAndKeyword", map);
-	}
+    public int insert(BoardVo boardVo) {
+        return sqlSession.insert("board.insert", boardVo);
+    }
 
-	public int getTotalCount(String keyword) {
-		return sqlSession.selectOne("board.getTotalCount", keyword);
-	}
+    public List<BoardVo> findAllByPageAndKeword(String keyword, Integer page, Integer size) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("keyword", keyword);
+        map.put("startIndex", (page - 1) * size);
+        map.put("size", size);
 
-	public void insert(BoardVo vo) {
-		sqlSession.insert("board.insert", vo);
-	}
+        return sqlSession.selectList("board.findAllByPageAndKeword", map);
+    }
 
-	public void delete(Long no) {
-		sqlSession.delete("board.delete", no);		
-	}
+    public int update(BoardVo boardVo) {
+        return sqlSession.update("board.update", boardVo);
+    }
 
-	public BoardVo findByNo(Long no) {
-		BoardVo vo = sqlSession.selectOne("board.findByNo", no);
-		System.out.println("rep-findByNo : " + vo);
-		
-		return sqlSession.selectOne("board.findByNo", no);
-	}
+    public int delete(Long no, Long userNo) {
+        Map<String, Long> map = new HashMap<String, Long>();
+        map.put("no", no);
+        map.put("userNo", userNo);
 
-	public void update(BoardVo vo) {
-		sqlSession.update("board.update", vo);
-	}
+        return sqlSession.delete("board.delete", map);
+    }
 
-	public void updateContentsOrder(BoardVo vo) {
-		System.out.println("rep - update");
-		sqlSession.update("board.updateContentsOrder", vo);	
-	}
+    public BoardVo findByNo(Long no) {
+        return sqlSession.selectOne("board.findByNo", no);
+    }
 
-	public void insertReply(BoardVo vo) {
-		System.out.println("vo:" + vo);
-		System.out.println("rep - insert");
-		sqlSession.insert("board.insertReply", vo);	
-	}
+    public BoardVo findByNoAndUserNo(Long no, Long userNo) {
+        Map<String, Long> map = new HashMap<String, Long>();
+        map.put("no", no);
+        map.put("userNo", userNo);
 
-	
-	
-	
-	
-	
-	
-	
+        return sqlSession.selectOne("board.findByNoAndUserNo", map);
+    }
+
+    public int updateHit(Long no) {
+        return sqlSession.update("board.updateHit", no);
+    }
+
+    public int updateOrderNo(Integer groupNo, Integer orderNo) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("groupNo", groupNo);
+        map.put("orderNo", orderNo);
+
+        return sqlSession.update("board.updateOrederNo", map);
+    }
+
+    public int getTotalCount(String keyword) {
+        return sqlSession.selectOne("board.totalCount", keyword);
+    }
 }
