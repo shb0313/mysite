@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import com.douzone.mysite.vo.SiteVo;
 
+
+
 @Repository
 public class SiteRepository {
 	
@@ -15,5 +17,10 @@ public class SiteRepository {
 	public SiteVo find() {
 		
 		return sqlSession.selectOne("site.find");
+	}
+
+	public void update(SiteVo vo) {
+		
+		sqlSession.update("site.update", vo);
 	}
 }

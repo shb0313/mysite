@@ -8,9 +8,10 @@ import com.douzone.mysite.vo.UserVo;
 
 @Controller
 public class MainController {
-
+	
 	@RequestMapping("/")
 	public String index() {
+		
 		return "main/index";
 	}
 	
