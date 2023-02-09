@@ -37,6 +37,7 @@
 				</property>
 			</bean>
 		</mvc:message-converters>
+		
 		<mvc:argument-resolvers>
 			<bean
 				class="com.douzone.mysite.security.AuthUserHandlerMethodArgumentResolver" />
@@ -105,6 +106,11 @@
 	<!-- mvc url-resource mapping -->
 	<mvc:resources mapping="/assets/upload-images/**"
 		location="file:/mysite-uploads/" />
+		
+	<!-- ApplicationContextRefreshEvent -->
+	<bean class="com.douzone.mysite.event.ApplicationContextEventListener" />
+	
+	
 
 	<context:annotation-config />
 	<context:component-scan
