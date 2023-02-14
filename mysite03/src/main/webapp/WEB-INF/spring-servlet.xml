@@ -113,7 +113,7 @@
 	<mvc:resources mapping="/assets/upload-images/**"
 		location="file:/mysite-uploads/" />
 		
-	<!-- ApplicationContextRefreshEvent -->
+	<!-- ApplicationContextEventListener -->
 	<bean class="com.douzone.mysite.event.ApplicationContextEventListener" />
 	
 	

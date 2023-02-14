@@ -378,11 +378,7 @@ public class BoardDao {
 				e.printStackTrace();
 			}
 		}
-
 		return result;
-		
-		
-		return 0;
 	}
 
 	private Connection getConnection() throws SQLException {
