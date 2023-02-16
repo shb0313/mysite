@@ -4,11 +4,36 @@
   <artifactId>mysite</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
+<<<<<<< HEAD
   	
   <modules>
   	<module>mysite02</module>
   	<module>mysite03</module>
   	<module>mysite04</module>
   	<module>mysite05</module>
+=======
+  
+  <build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<url>${tomcat.deploy.url}</url>
+					<server>tomcat-douzone2023</server>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+  <modules>
+  	<module>mysite02</module>
+>>>>>>> 2b257a6f0386d1a0f57f03db7dd0004482f952a7
   </modules>
 </project>

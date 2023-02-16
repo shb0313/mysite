@@ -1,7 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+<<<<<<< HEAD
 	<groupId>com.douzone</groupId>
 	<version>0.0.1-SNAPSHOT</version>
+=======
+	<parent>
+		<groupId>com.douzone</groupId>
+		<artifactId>mysite</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+>>>>>>> 2b257a6f0386d1a0f57f03db7dd0004482f952a7
 	<artifactId>mysite02</artifactId>
 	<packaging>war</packaging>
 	
@@ -13,6 +21,7 @@
 	</properties>
 	
 	<dependencies>
+<<<<<<< HEAD
 		<!-- jstl -->
 		<dependency>
 			<groupId>jstl</groupId>
@@ -20,6 +29,8 @@
 			<version>1.2</version>
 		</dependency>
 		
+=======
+>>>>>>> 2b257a6f0386d1a0f57f03db7dd0004482f952a7
 		<!-- MariaDB JDBC Driver -->
 		<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
 		<dependency>
@@ -45,6 +56,7 @@
 	
 	<build>
 		<finalName>mysite02</finalName>
+<<<<<<< HEAD
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -61,5 +73,8 @@
 				</configuration>
 			</plugin>
 		</plugins>
+=======
+		
+>>>>>>> 2b257a6f0386d1a0f57f03db7dd0004482f952a7
 	</build>
 </project>

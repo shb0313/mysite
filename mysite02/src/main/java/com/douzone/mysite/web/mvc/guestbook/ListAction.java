@@ -18,7 +18,13 @@ public class ListAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<GuestBookVo> list = new GuestBookDao().findAll();
 		request.setAttribute("list", list);
+<<<<<<< HEAD
 				
+=======
+		
+		System.out.println(list.size());
+		
+>>>>>>> 2b257a6f0386d1a0f57f03db7dd0004482f952a7
 		MvcUtil.forward("guestbook/list", request, response);
 
 	}
