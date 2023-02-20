@@ -30,9 +30,4 @@ public class JoinAction implements Action {
 		
 		MvcUtil.redirect(request.getContextPath() + "/user?a=joinsuccess", request, response);
 	}
-<<<<<<< HEAD
 }
-=======
-
-}
->>>>>>> 2b257a6f0386d1a0f57f03db7dd0004482f952a7

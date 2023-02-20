@@ -11,6 +11,7 @@ import com.douzone.web.util.MvcUtil;
 
 public class MainAction implements Action {
 
+	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MvcUtil.forward("main/index", request, response);
 	}

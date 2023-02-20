@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,12 +11,17 @@
 </head>
 <body>
 	<div id="container">
-		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
+		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
+				<!-- 글 수정 폼 -->
+				<!-- parameter : action = modify, 게시글no, ssearchWord, currentPage, title, content -->
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board">
-				<input type='hidden' name="a" value="modify">
-				<input type='hidden' name="no" value="${boardVo.no }">
+					<input type="hidden" name="a" value="modify" />
+					<input type="hidden" name="no" value="${boardVo.no }" />
+ 					<input type="hidden" name="searchWord" value="${searchWord }" />
+					<input type="hidden" name="currentPage" value="${currentPage }" />
+					
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글수정</th>
@@ -34,14 +38,16 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.request.contextPath }/board?a=view&no=${boardVo.no }">취소</a>
+						<!-- 글 수정 취소 버튼 -->
+						<!-- parameter : action = view, 게시글no, currentPage, searchWord -->
+						<a href="${pageContext.request.contextPath }/board?a=view&no=${boardVo.no}&currentPage=${currentPage}&searchWord=${searchWord}">취소</a>
 						<input type="submit" value="수정">
 					</div>
-				</form>				
+				</form>
 			</div>
 		</div>
-		<c:import url="/WEB-INF/views/includes/navigation.jsp"></c:import>
-		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
+		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
 </body>
 </html>

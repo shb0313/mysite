@@ -1,4 +1,4 @@
-@CHARSET "UTF-8";
+@charset "UTF-8";
 @import "mysite.css";
 
 #board { margin:20px auto;	width:550px; }
@@ -96,11 +96,7 @@ div.bottom {
 
 div.bottom a { 
 	text-decoration:none; 
-<<<<<<< HEAD
 	display:block;
-=======
-	dispaly:block;
->>>>>>> 2b257a6f0386d1a0f57f03db7dd0004482f952a7
 }
 
 a#new-book	 { 
@@ -132,14 +128,10 @@ a.del	{
 	display:block;
 	width:20px;
 	height:20px; 
-<<<<<<< HEAD
 	background:url("/mysite02/assets/images/recycle.png") no-repeat 0 0;
 	font-size:0;
 }
 
-/*
-	게시판 리스트 페이징
-*/
 div.pager {
 	width:100%;
 	text-align:center;
@@ -155,9 +147,3 @@ div.pager  ul li a:visited,
 div.pager  ul li a:link,
 div.pager  ul li a:active	{ text-decoration: none; color:#555 }
 div.pager  ul li a:hover	{ text-decoration: none; color:#f00 }
-
-=======
-	background:url("/mysite/assets/images/recycle.png") no-repeat 0 0;
-	font-size:0;
-}
->>>>>>> 2b257a6f0386d1a0f57f03db7dd0004482f952a7

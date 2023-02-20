@@ -5,10 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
-=======
->>>>>>> 2b257a6f0386d1a0f57f03db7dd0004482f952a7
 
 import com.douzone.mysite.dao.UserDao;
 import com.douzone.mysite.vo.UserVo;
@@ -26,6 +23,7 @@ public class LoginAction implements Action {
 		vo.setEmail(email);
 		vo.setPassword(password);
 		
+		//authUser (인증된 유저)
 		UserVo authUser = new UserDao().findByEmailAndPassword(vo);
 		
 		if(authUser == null) {
@@ -34,20 +32,10 @@ public class LoginAction implements Action {
 			return;
 		}
 		
-<<<<<<< HEAD
 		/* login 처리 */
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
 		
 		MvcUtil.redirect(request.getContextPath(), request, response);
 	}
-
 }
-=======
-		/* login처리 */
-		
-
-	}
-
-}
->>>>>>> 2b257a6f0386d1a0f57f03db7dd0004482f952a7

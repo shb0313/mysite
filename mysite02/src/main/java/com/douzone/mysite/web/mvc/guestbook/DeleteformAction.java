@@ -1,4 +1,4 @@
-package com.douzone.mysite.web.mvc.board;
+package com.douzone.mysite.web.mvc.guestbook;
 
 import java.io.IOException;
 
@@ -9,14 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.util.MvcUtil;
 
-public class ReplyFormAction implements Action {
+public class DeleteformAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Long no = Long.parseLong(request.getParameter("no"));
-				
-		request.setAttribute("no", no);
-		MvcUtil.forward("board/reply", request, response);
+		MvcUtil.forward("guestbook/deleteform", request, response);
 	}
 }

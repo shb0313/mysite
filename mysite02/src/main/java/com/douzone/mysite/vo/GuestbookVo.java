@@ -1,17 +1,11 @@
 package com.douzone.mysite.vo;
 
-public class GuestBookVo {
+public class GuestbookVo {
 	private Long no;
 	private String name;
 	private String password;
 	private String message;
 	private String regDate;
-	public String getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
-	}
 	public Long getNo() {
 		return no;
 	}
@@ -36,10 +30,15 @@ public class GuestBookVo {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
+	public String getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
 	@Override
 	public String toString() {
-		return "GuestBookVo [no=" + no + ", name=" + name + ", password=" + password + ", message=" + message
+		return "GuestbookVo [no=" + no + ", name=" + name + ", password=" + password + ", message=" + message
 				+ ", regDate=" + regDate + "]";
-	}	
+	}
 }

@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,11 +11,14 @@
 </head>
 <body>
 	<div id="container">
-		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
+	<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
+				<!-- 글쓰기 입력 폼 -->
+				<!-- parameter : actrion = write, 로그인한 유저 no, title, content -->
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board">
-					<input type = "hidden" name = "a" value="write">					
+					<input type = "hidden" name = "a" value="write">
+					<input type = "hidden" name = "userNo" value="${sessionScope.authUser.no }">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
@@ -33,14 +35,16 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.request.contextPath }/board">취소</a>
+						<!-- 글 쓰기 취소 버튼 -->
+						<!-- parameter : currentPage, searchWord -->
+						<a href="${pageContext.request.contextPath }/board?&offset=${currentPage}&searchWord=${searchWord}">취소</a>
 						<input type="submit" value="등록">
 					</div>
 				</form>				
 			</div>
 		</div>
-		<c:import url="/WEB-INF/views/includes/navigation.jsp"></c:import>
-		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
+		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
 </body>
 </html>
