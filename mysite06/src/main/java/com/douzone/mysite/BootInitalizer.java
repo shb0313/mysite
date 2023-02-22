@@ -10,14 +10,4 @@ public class BootInitalizer extends SpringBootServletInitializer {
 		
 		return builder.sources(MySiteApplication.class);
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
