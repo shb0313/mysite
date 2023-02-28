@@ -106,6 +106,7 @@ public class BoardController {
 		@AuthUser UserVo authUser,
 		@PathVariable("no") Long no,
 		Model model) {
+		
 		BoardVo boardVo = boardService.getContents(no);
 		boardVo.setOrderNo(boardVo.getOrderNo() + 1);
 		boardVo.setDepth(boardVo.getDepth() + 1);
